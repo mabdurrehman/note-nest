@@ -44,12 +44,14 @@
 
 const express = require("express");
 const noteRoutes = require("./src/routes/noteRoutes");
+const errorHandler = require("./src/middlewares/errorHandler");
 
 const app = express();
 
 app.use(express.json()); // parse JSON body
 
 app.use("/api", noteRoutes);
+app.use(errorHandler);
 
 const PORT = 3000;
 
