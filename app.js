@@ -45,10 +45,12 @@
 const express = require("express");
 const noteRoutes = require("./src/routes/noteRoutes");
 const errorHandler = require("./src/middlewares/errorHandler");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json()); // parse JSON body
+app.use(cors());
 
 // health check
 app.get("/", (req, res) => {
