@@ -50,7 +50,20 @@ const app = express();
 
 app.use(express.json()); // parse JSON body
 
+// health check
+app.get("/", (req, res) => {
+    res.send("API is running 🚀");
+});
+
+// routes
 app.use("/api", noteRoutes);
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({ error: "Route not found" });
+});
+
+// global error handler
 app.use(errorHandler);
 
 const PORT = 3000;

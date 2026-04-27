@@ -6,13 +6,23 @@ const asyncHandler = require("../middlewares/asyncHandler");
 //     res.json(notes);
 // }
 
+function isValidId(id) {
+    return !isNaN(Number(id));
+}
+
 const getAll = asyncHandler(async (req, res) => {
     const notes = await noteService.getAllNotes();
     res.json(notes);
 });
 
 const getOne = asyncHandler(async (req, res) => {
-    const note = await noteService.getNoteById(req.params.id);
+    const id = Number(req.params.id);
+
+    if (!isValidId(id)) {
+        return res.status(400).json({ error: "Invalid ID" });
+    }
+
+    const note = await noteService.getNoteById(id);
 
     if (!note) {
         return res.status(404).json({ error: "Note not found" });
@@ -27,7 +37,12 @@ const create = asyncHandler(async (req, res) => {
 });
 
 const remove = asyncHandler(async (req, res) => {
-    const success = await noteService.deleteNote(req.params.id);
+    const id = Number(req.params.id);
+    if (!isValidId(id)) {
+        return res.status(400).json({ error: "Invalid ID" });
+    }
+
+    const success = await noteService.deleteNote(id);
 
     if (!success) {
         return res.status(404).json({ error: "Note not found" });
@@ -37,8 +52,15 @@ const remove = asyncHandler(async (req, res) => {
 });
 
 const update = asyncHandler(async (req, res) => {
+    const id = Number(req.params.id);
+
+    if (!isValidId(id)) {
+        return res.status(400).json({ error: "Invalid ID" });
+    }
+
+
     const note = await noteService.updateNote(
-        req.params.id,
+        id,
         req.body.content
     );
 
