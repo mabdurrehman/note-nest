@@ -67,26 +67,29 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
+    <div className="min-h-screen bg-slate-100 px-4 py-10">
+      <div className="mx-auto w-full max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 shadow-lg sm:p-8">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">NoteNest</h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Your calm space for ideas, reminders, and daily notes.
+          </p>
+        </div>
 
-        <h1 className="text-2xl font-bold mb-4">DevNotes</h1>
+        {error && (
+          <p className="mb-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700">
+            {error}
+          </p>
+        )}
+        {loading && (
+          <p className="mb-4 rounded-lg border border-blue-200 bg-blue-50 px-3 py-2 text-sm text-blue-700">
+            Loading...
+          </p>
+        )}
 
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        {loading && <p className="text-gray-500 mb-2">Loading...</p>}
+        <AddNote content={content} setContent={setContent} onAdd={handleAdd} />
 
-        <AddNote
-          content={content}
-          setContent={setContent}
-          onAdd={handleAdd}
-        />
-
-        <NoteList
-          notes={notes}
-          onDelete={handleDelete}
-          onUpdate={handleUpdate}
-        />
-
+        <NoteList notes={notes} onDelete={handleDelete} onUpdate={handleUpdate} />
       </div>
     </div>
   );
