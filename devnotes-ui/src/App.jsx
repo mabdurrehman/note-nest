@@ -67,22 +67,27 @@ function App() {
   }
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>DevNotes</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <div className="max-w-xl mx-auto bg-white p-6 rounded-xl shadow">
 
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <AddNote
-        content={content}
-        setContent={setContent}
-        onAdd={handleAdd}
-      />
+        <h1 className="text-2xl font-bold mb-4">DevNotes</h1>
 
-      <NoteList
-        notes={notes}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
-      />
+        {error && <p className="text-red-500 mb-2">{error}</p>}
+        {loading && <p className="text-gray-500 mb-2">Loading...</p>}
+
+        <AddNote
+          content={content}
+          setContent={setContent}
+          onAdd={handleAdd}
+        />
+
+        <NoteList
+          notes={notes}
+          onDelete={handleDelete}
+          onUpdate={handleUpdate}
+        />
+
+      </div>
     </div>
   );
 }
