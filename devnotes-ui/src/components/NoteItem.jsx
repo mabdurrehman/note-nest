@@ -3,6 +3,8 @@ import { useState } from "react";
 function NoteItem({ note, onDelete, onUpdate }) {
     const [editing, setEditing] = useState(false);
     const [value, setValue] = useState(note.content);
+    const buttonBaseClass =
+        "inline-flex h-10 min-w-24 items-center justify-center rounded-lg px-4 text-sm font-medium transition active:scale-[0.99]";
 
     function handleUpdate() {
         onUpdate(note.id, value);
@@ -26,13 +28,13 @@ function NoteItem({ note, onDelete, onUpdate }) {
                     />
                     <div className="flex gap-2">
                         <button
-                            className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
+                            className={`${buttonBaseClass} bg-sky-600 text-white hover:bg-sky-700`}
                             onClick={handleUpdate}
                         >
                             Save
                         </button>
                         <button
-                            className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                            className={`${buttonBaseClass} border border-slate-300 bg-white text-slate-700 hover:bg-slate-100`}
                             onClick={() => {
                                 setValue(note.content);
                                 setEditing(false);
@@ -46,7 +48,7 @@ function NoteItem({ note, onDelete, onUpdate }) {
                 <div className="flex items-start justify-between gap-3">
                     <p className="whitespace-pre-wrap break-words text-slate-800">{note.content}</p>
                     <button
-                        className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                        className={`${buttonBaseClass} bg-sky-600 text-white hover:bg-sky-700`}
                         onClick={() => setEditing(true)}
                     >
                         Edit
@@ -56,7 +58,7 @@ function NoteItem({ note, onDelete, onUpdate }) {
 
             <div className="mt-3 flex justify-end">
                 <button
-                    className="rounded-lg bg-red-600 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-red-700"
+                    className={`${buttonBaseClass} bg-red-500 text-white hover:bg-red-600`}
                     onClick={handleDelete}
                 >
                     Delete
